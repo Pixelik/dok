@@ -1,0 +1,164 @@
+<!-- alert-block -->
+<section>
+   <h1>Alerts</h1>
+
+  <p>An alert is a 'standout' block that should be used to provide users with
+    information.</p>
+  
+<h2>When to Use Alerts</h2>
+
+  <ul>
+    <li>To confirm that an action has been completed</li>
+    <li>To warn the user of an error or mistake</li>
+    <li>To provide contextual information, for example, that a number of items
+      are selected</li>
+  </ul>
+  
+<h2>When Not to Use Alerts</h2>
+
+  <ul>
+    <li>To display an interface that is not a 'message' to the user</li>
+    <li>To force actions on a user (for example, confirming an action). For this,
+      use a modal instead.</li>
+    <li>To display a lot of content, or provide a very long message. Alerts should
+      only contain small snippets of information. Consider another layout.</li>
+  </ul>
+  
+<h2>Position and Style</h2>
+
+  <p>Alerts can be positioned anywhere in the interface, although ideally,
+    they should be directly against the page background.
+    <br>At most they should be nested one level deep inside a card or other container.
+    <br>Do not nest an alert inside another nested block. Never nest alerts inside
+    other alerts.
+    <br>The tone of the alert's message can be controlled by using different colors.
+    <br>For example, a warning could be shown with either an orange (warning)
+    or red (danger) alert,depending n the severity.
+    <br>If you choose to do this, make sure you also include an icon for colorblind
+    users.
+    <br>Alerts can optionally contain a close button so that users can dismiss
+    the message.
+    <br>They can also include action buttons (for example, an 'undo' button),
+    although only for actions that the user can safely ignore.</p>
+</section>
+<section type="example">
+  <div class="column">
+    <div class="title">Alert:</div>
+    <div class="subtitle"> <code>.alert</code>
+
+    </div>
+    <div class="description">A standard alert.
+      <br>The first element placed inside it will have it's top margin removed.</div>
+  </div>
+  <div class="column">
+    <div class="example">
+      <div class="alert">
+         <h4>Alert Title</h4>
+
+        <p>Alert content with <a href="#">a link</a>.</p> <a class="button top-margin top-margin--small">And a button!</a>
+
+      </div>
+      <!-- alert-component -->{{> alert}}
+      <!-- alert-component -->
+    </div>
+  </div>
+</section>
+<section>
+   <h3>Methods</h3>
+
+  
+<h4>Open</h4>
+
+  <p><code>$(element).alert('open', options)</code>
+
+  </p>
+<pre><code>options = {
+isAutoclose: false, // boolean, optional
+delay: 2 // integer, unit in seconds, optional
+}</code></pre>
+
+  <p>Open the alert and optionally autocloses it.</p>
+  
+<h4>Close</h4>
+
+  <p><code>$(element).alert('close')</code>
+
+    <br>Close the alert.</p>
+  
+<h4>Toggle</h4>
+
+  <p><code>$(element).alert('toggle')</code>
+
+    <br>Toggle the alert.</p>
+  
+<h4>Remove</h4>
+
+  <p><code>$(element).alert('remove')</code>
+
+    <br>Hides then removes an alert.</p>
+  
+<h3>Accessors</h3>
+
+  
+<h4>isOpened</h4>
+
+  <p><code>$(element).alert('isOpened')</code>
+
+    <br>Return true if the alert is opened, else false.</p>
+  
+<h4>isClosed</h4>
+
+  <p><code>$(element).alert('isClosed')</code>
+
+    <br>Return true if the alert is closed, else false.</p>
+  
+<h3>Events</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th id="event">Event</th>
+        <th id="triggered_by">Triggered by</th>
+        <th id="occurence">Occurence</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>open.pdui.alert</td>
+        <td>open</td>
+        <td>before</td>
+      </tr>
+      <tr>
+        <td>opened.pdui.alert</td>
+        <td>open</td>
+        <td>after</td>
+      </tr>
+      <tr>
+        <td>close.pdui.alert</td>
+        <td>close</td>
+        <td>before</td>
+      </tr>
+      <tr>
+        <td>closed.pdui.alert</td>
+        <td>close</td>
+        <td>after</td>
+      </tr>
+      <tr>
+        <td>toggle.pdui.alert</td>
+        <td>toggle</td>
+        <td>before</td>
+      </tr>
+      <tr>
+        <td>toggled.pdui.alert</td>
+        <td>toggle</td>
+        <td>after</td>
+      </tr>
+      <tr>
+        <td>remove.pdui.alert</td>
+        <td>remove</td>
+        <td>before</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+<!-- alert-block -->

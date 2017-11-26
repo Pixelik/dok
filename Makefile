@@ -10,3 +10,7 @@ install:
 build:
 	clear
 	node scripts/build
+
+serve:
+	make build
+	http-server

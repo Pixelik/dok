@@ -5,10 +5,11 @@
   "dependencies": {
     "fs-extra": "^4.0.2",
     "handlebars": "^4.0.11",
+    "html": "^1.0.0",
     "jquery": "^3.2.1",
     "jsdom": "^11.4.0",
     "node-sass": "^4.7.2",
-    "html": "^1.0.0"
+    "showdown": "^1.8.2"
   },
   "engines": {
     "node": ">= 8"
