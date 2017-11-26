@@ -1,0 +1,125 @@
+<!-- alert-block -->
+<section>
+
+  <md>
+    # Alerts
+
+    An alert is a 'standout' block that should be used to provide users with information.
+
+    ## When to Use Alerts
+
+    - To confirm that an action has been completed
+    - To warn the user of an error or mistake
+    - To provide contextual information, for example, that a number of items are selected
+
+    ## When Not to Use Alerts
+
+    - To display an interface that is not a 'message' to the user
+    - To force actions on a user (for example, confirming an action). For this, use a modal instead.
+    - To display a lot of content, or provide a very long message. Alerts should only contain small snippets  of information. Consider another layout.
+
+    ## Position and Style
+
+    Alerts can be positioned anywhere in the interface, although ideally, they should be directly against   the page background.
+
+    At most they should be nested one level deep inside a card or other container.
+
+    Do not nest an alert inside another nested block. Never nest alerts inside other alerts.
+
+    The tone of the alert's message can be controlled by using different colors.
+
+    For example, a warning could be shown with either an orange (warning) or red (danger) alert,depending   n the severity.
+
+    If you choose to do this, make sure you also include an icon for colorblind users.
+
+    Alerts can optionally contain a close button so that users can dismiss the message.
+
+    They can also include action buttons (for example, an 'undo' button), although only for actions that the  user can safely ignore.
+  </md>
+
+</section>
+
+<section type="example">
+
+  <title>Alert:</title>
+
+  <subtitle>
+    <code>.alert</code>
+  </subtitle>
+
+  <description>
+    A standard alert.
+    <br>
+    The first element placed inside it will have it's top margin removed.
+  </description>
+
+  <example>
+    <hbs name="alert">
+      <div class="alert">
+        <h4>Alert Title</h4>
+        <p>Alert content with <a href="#">a link</a>.</p>
+        <a class="button top-margin top-margin--small">And a button!</a>
+      </div>
+    </hbs>
+
+    <!-- alert-component -->
+      {{> alert}}
+    <!-- alert-component -->
+  </example>
+
+</section>
+
+<section>
+
+  <md>
+    ### Methods
+
+    #### Open
+    `$(element).alert('open', options)`
+
+    ```
+    options = {
+      isAutoclose: false, // boolean, optional
+      delay: 2 // integer, unit in seconds, optional
+    }
+    ```
+    Open the alert and optionally autocloses it.
+
+    #### Close
+    `$(element).alert('close')`
+    Close the alert.
+
+    #### Toggle
+    `$(element).alert('toggle')`
+    Toggle the alert.
+
+    #### Remove
+
+    `$(element).alert('remove')`
+    Hides then removes an alert.
+
+    ### Accessors
+
+    #### isOpened
+    `$(element).alert('isOpened')`
+    Return true if the alert is opened, else false.
+
+    #### isClosed
+    `$(element).alert('isClosed')`
+    Return true if the alert is closed, else false.
+
+    ### Events
+
+    | Event | Triggered by | Occurence |
+    |-------|--------------|-----------|
+    | open.pdui.alert | open | before |
+    | opened.pdui.alert | open | after |
+    | close.pdui.alert | close | before |
+    | closed.pdui.alert | close | after |
+    | toggle.pdui.alert | toggle | before |
+    | toggled.pdui.alert | toggle | after |
+    | remove.pdui.alert | remove | before |
+  </md>
+
+</section>
+<!-- alert-block -->

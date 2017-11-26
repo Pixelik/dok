@@ -1,0 +1,279 @@
+$alert-border-radius:                $border-radius-large;
+$alert-padding:                      15px;
+$alert-std-color:                    color(grey, 1);
+$alert-w-border-text-color:          color(grey, 4);
+$alert-w-border-border-color:        transparentize(color(grey, 9), 0.75);
+$alert-w-border-background-color:    transparentize(color(grey, 18), 0.75);
+$alert-bottom-margin:                $spacing-unit / 2;
+$alert-white-modifier-bd-color:      $white;
+$alert-white-modifier-color:         $base-font-color;
+$alert-white-modifier-anchor-color:  color(primary, mid);
+$thin-alert-padding:                 7px;
+$alert-p-margin-top:                 8px;
+
+$alert-arrow-size:            $alert-padding; // The actual arrow head size will be half of this value
+$alert-arrow-offset:          -$alert-arrow-size / 2 + 1;
+
+$alert-icon-size:             16px;
+$alert-icon-margin:           2px;
+
+
+/*
+  List the color alerts you want to generate
+  If you change this list, be sure to update the example docs!
+*/
+$alert-colors: 'primary', 'warning', 'danger', 'success', 'info';
+
+/*
+  Arrows:
+----------------------------------------------
+|   Left Top  |   Center Top  |   Right Top  |
+----------------------------------------------
+| Left Center |               | Right Center |
+----------------------------------------------
+| Left Bottom | Center Bottom | Right Bottom |
+----------------------------------------------
+
+ - The first set of lists specifies the position on the div
+ - The second specifies what arrows you can attach to that block
+
+ For example, the left top block can have a horizontal arrow (attached to the
+ left side) and a vertical arrow (attached to the top side).
+
+ By contrast, the center top block can only have a vertical arrow attached to
+ its top side.
+*/
+$arrows: (
+  (
+    ('left', 'top'),
+    ('horizontal', 'vertical')
+  ),
+  (
+    ('center', 'top'),
+    ('vertical')
+  ),
+  (
+    ('right', 'top'),
+    ('horizontal', 'vertical')
+  ),
+  (
+    ('right', 'center'),
+    ('horizontal')
+  ),
+  (
+    ('right', 'bottom'),
+    ('horizontal', 'vertical')
+  ),
+  (
+    ('center', 'bottom'),
+    ('vertical')
+  ),
+  (
+    ('left', 'bottom'),
+    ('horizontal', 'vertical')
+  ),
+  (
+    ('left', 'center'),
+    ('horizontal')
+  )
+);
+
+@function calculate-arrow-direction($x-axis, $y-axis, $direction) {
+  // Work out what direction our arrow points in
+  @if $direction == 'vertical' {
+    @if $y-axis == 'top' {
+      @return 'up';
+    } @else {
+      @return 'down';
+    }
+  } @else { // Direction is horizontal
+    @if $x-axis == 'left' {
+      @return 'left';
+    } @else {
+      @return 'right';
+    }
+  }
+}
+
+@mixin horizontal-arrow-position($y-axis) {
+  /*
+    Work out where our horizontal (pointing left or right) arrow
+    should be placed vertically.
+  */
+  @if $y-axis == 'top' {
+    @include rem(top, $alert-padding);
+  } @else if $y-axis == 'center' {
+    @include rem(margin-top, $alert-arrow-offset);
+    top: 50%;
+  } @else { // y-axis is bottom
+    @include rem(bottom, $alert-padding);
+  }
+}
+
+@mixin vertical-arrow-position($x-axis) {
+  /*
+    Work out where our vertical (pointing left or right) arrow
+    should be placed horizontally.
+  */
+  @if $x-axis == 'left' {
+    @include rem(left, $alert-padding);
+  } @else if $x-axis == 'center' {
+    @include rem(margin-left, $alert-arrow-offset);
+    left: 50%;
+  } @else { // x-axis is right
+    @include rem(right, $alert-padding);
+  }
+}
+
+@mixin generate-alert-with-arrow($x-axis, $y-axis, $direction) {
+  $arrow-direction: calculate-arrow-direction($x-axis, $y-axis, $direction);
+  position: relative;
+
+  &::before {
+    @include triangle($alert-arrow-size, $alert-std-color, $arrow-direction);
+    content: '';
+    position: absolute;
+
+    @if $arrow-direction == 'left' {
+      @include horizontal-arrow-position($y-axis);
+      @include rem(left, $alert-arrow-offset);
+      border-right-color: inherit;
+
+    } @else if $arrow-direction == 'right' {
+      @include horizontal-arrow-position($y-axis);
+      @include rem(right, $alert-arrow-offset);
+      border-left-color: inherit;
+
+    } @else if $arrow-direction == 'up' {
+      @include vertical-arrow-position($x-axis);
+      @include rem(top, $alert-arrow-offset);
+      border-bottom-color: inherit;
+
+    } @else { // arrow direction == down
+      @include vertical-arrow-position($x-axis);
+      @include rem(bottom, $alert-arrow-offset);
+      border-top-color: inherit;
+    }
+  }
+}
+
+@include block('alert') {
+  @include rem(border-radius, $alert-border-radius);
+  @include no-first-child-margin;
+  @include rem(padding, $alert-padding);
+  @include rem(font-size, $base-font-size);
+  background-color: $alert-std-color;
+  border-color: $alert-std-color;
+  color: $white;
+  @include clearfix;
+
+  p {
+    @include rem(margin-top, $alert-p-margin-top);
+  }
+
+  a:not(.button) {
+    color: $white;
+    text-decoration: underline;
+  }
+
+  @include mixie('close-button') {
+    @include close-button($white);
+    margin-bottom: 0;
+  }
+
+  @include mixie('icon') {
+    fill: $white;
+    @include rem(width, $alert-icon-size);
+    @include rem(height, $alert-icon-size);
+    @include rem(margin-right, $alert-icon-margin * 2);
+    @include rem(margin-top, $alert-icon-margin);
+    float: left;
+
+    & + * {
+      margin-top: 0;
+    }
+  }
+
+  @include modifier('thin') {
+    @include rem(padding, $thin-alert-padding);
+  }
+
+  @include modifier('hidden') {
+    display: none;
+  }
+
+  @include modifier('with-shadow') {
+    @include drop-shadow(color(grey, 6), 3px);
+  }
+
+  @include modifier('border-only') {
+    background-color: $alert-w-border-background-color;
+    @include rem(border, 1px solid $alert-w-border-border-color);
+    color: $alert-w-border-text-color;
+
+    a:not(.button) {
+      color: $alert-w-border-text-color;
+      text-decoration: underline;
+    }
+
+    @include mixie('close-button') {
+      @include close-button($alert-w-border-text-color);
+      margin-bottom: 0;
+    }
+
+    @include mixie('icon') {
+      fill: $alert-w-border-text-color;
+      @include rem(margin-top, $alert-icon-margin);
+    }
+  }
+
+  @each $color in $alert-colors {
+    @include modifier($color) {
+      background-color: color($color, dark);
+      border-color: color($color, dark);
+    }
+  }
+
+  @include modifier('white') {
+    background-color: $alert-white-modifier-bd-color;
+    color: $alert-white-modifier-color;
+
+    @include mixie('close-button') {
+      @include close-button($alert-white-modifier-color);
+      margin-bottom: 0;
+    }
+
+    @include mixie('icon') {
+      fill: $alert-white-modifier-color;
+      @include rem(margin-top, $alert-icon-margin);
+    }
+
+    a:not(.button) {
+      color: $alert-white-modifier-anchor-color;
+    }
+  }
+
+  @each $arrow in $arrows {
+    $x-axis: nth(nth($arrow, 1), 1);
+    $y-axis: nth(nth($arrow, 1), 2);
+    $arrow-head-directions: nth($arrow, 2);
+
+    @each $direction in $arrow-head-directions {
+
+      @include modifier('arrow-' + $x-axis + '-' + $y-axis + '-' + $direction) {
+        @include generate-alert-with-arrow($x-axis, $y-axis, $direction);
+      }
+
+      @include modifier('arrow-' + $y-axis + '-' + $x-axis + '-' + $direction) {
+        @include generate-alert-with-arrow($x-axis, $y-axis, $direction);
+      }
+    }
+  }
+
+  @include modifier('inline-block') {
+    float: none;
+    display: inline-block;
+    width: auto;
+    margin-bottom: 0;
+  }
+}
