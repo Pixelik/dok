@@ -1,5 +1,7 @@
 # dok
 
+`npm install && make serve`
+
 1. `/content/blocks/${block}/${block}.xml` is where you write the documentation for your block
 2. each block-documentation is split up into `<section>`s
 3. each `<section>` consists of a `<title>`, `<subtitle>`, `<description>` and an `<example>`. These are custom xml tags that will be replaced with standard HTML tags with "dok" classes/styling (TODO)
